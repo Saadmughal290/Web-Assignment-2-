@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSS Practice Question – CSC 337 Assignment 2</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+
+    h1 { font-family: 'Playfair Display', serif; color: #1a1a2e; margin-bottom: 0.3rem; }
+    .subtitle { color: #888; margin-bottom: 2.5rem; }
+
+    .question-block {
+      background: #f9f9f7;
+      border: 1px solid #e0ddd5;
+      border-radius: 12px;
+      padding: 1.6rem;
+      margin-bottom: 2rem;
+    }
+
+    .question-block h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: #1a1a2e;
+      margin-bottom: 1rem;
+    }
+
+    /* Code display */
+    pre {
+      background: #1a1a2e;
+      color: #e0ddd5;
+      padding: 1.2rem 1.5rem;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      overflow-x: auto;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    code { font-family: 'Courier New', monospace; }
+
+    /* Answer table */
+    .answer-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    .answer-table th {
+      background: #1a1a2e;
+      color: #fff;
+      padding: 0.75rem 1rem;
+      text-align: left;
+    }
+
+    .answer-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #e0ddd5;
+      vertical-align: top;
+    }
+
+    .answer-table tr:last-child td { border-bottom: none; }
+
+    .answer-table tr:nth-child(even) td { background: #fafaf8; }
+
+    .tag  { font-family: monospace; font-size: 0.83rem; background: #f0f0eb; padding: 0.15rem 0.4rem; border-radius: 4px; }
+
+    .rule { color: #e94560; font-weight: 600; font-size: 0.82rem; }
+
+    .prop-list { list-style: none; padding: 0; margin: 0; }
+    .prop-list li { margin-bottom: 0.25rem; }
+    .prop-name  { color: #0f3460; font-weight: 600; }
+    .prop-val   { color: #555; }
+    .nil        { color: #aaa; font-style: italic; }
+
+    .explanation {
+      background: #fff0f3;
+      border-left: 4px solid #e94560;
+      padding: 0.8rem 1rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.85rem;
+      color: #555;
+      margin-top: 0.3rem;
+    }
+
+    .specificity-note {
+      background: #e8f4fd;
+      border-left: 4px solid #0f3460;
+      padding: 1rem 1.2rem;
+      border-radius: 0 8px 8px 0;
+      margin-top: 1.5rem;
+      font-size: 0.88rem;
+    }
+
+    .specificity-note h4 { color: #0f3460; margin-bottom: 0.5rem; }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <h1>CSS Practice Question – Solution</h1>
+  <p class="subtitle">CSC 337 – Web Programming Languages &bull; Assignment 2 &bull; 10 Marks (CLO-2)</p>
+
+  <!-- GIVEN CODE -->
+  <div class="question-block">
+    <h2>📄 Given CSS</h2>
+    <pre><code>* {
+    font-size: 18px;
+    font-family: Tahoma;
+}
+
+h1, h3 {
+    color: darkgreen;
+    font-style: normal;
+}
+
+p {
+    color: gray;
+}
+
+section p {
+    color: brown;
+    font-style: italic;
+}
+
+.wrapper h3 {
+    font-family: "Times New Roman";
+    color: maroon;
+}
+
+section + h1 {
+    border-style: solid;
+    color: navy;
+}
+
+.highlight {
+    font-size: 26px;
+    border-style: dotted;
+}</code></pre>
+
+    <h2>📄 Given HTML</h2>
+    <pre><code>&lt;body&gt;
+    &lt;section&gt; Line 1 &lt;/section&gt;
+    &lt;br/&gt;
+
+    &lt;section class="wrapper"&gt;
+        &lt;p&gt; Line 2 &lt;/p&gt;
+        &lt;h3&gt; Line 3 &lt;/h3&gt;
+    &lt;/section&gt;
+
+    &lt;p&gt; Line 4 &lt;/p&gt;
+
+    &lt;section&gt;
+        &lt;ul&gt;
+            &lt;li&gt; Line 5 &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/section&gt;
+
+    &lt;h1&gt; Line 6 &lt;/h1&gt;
+
+    &lt;p class="highlight"&gt; Line 7 &lt;/p&gt;
+&lt;/body&gt;</code></pre>
+  </div>
+
+  <!-- ANSWER TABLE -->
+  <div class="question-block">
+    <h2>✅ Final Applied Styles – Answer Table</h2>
+
+    <table class="answer-table">
+      <thead>
+        <tr>
+          <th>Line</th>
+          <th>HTML Element</th>
+          <th>Matching Rules</th>
+          <th>Final Applied Styles</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- LINE 1 -->
+        <tr>
+          <td><strong>Line 1</strong></td>
+          <td><span class="tag">&lt;section&gt;</span></td>
+          <td><span class="rule">*</span></td>
+          <td>
+            <ul class="prop-list">
+              <li><span class="prop-name">font-size:</span> <span class="prop-val">18px</span></li>
+              <li><span class="prop-name">font-family:</span> <span class="prop-val">Tahoma</span></li>
+              <li><span class="prop-name">color:</span> <span class="nil">NIL (inherited from browser default)</span></li>
+            </ul>
+            <div class="explanation">
+              Only the universal selector <code>*</code> applies. No other rule targets a bare <code>&lt;section&gt;</code>.
+            </div>
+          </td>
+        </tr>
+
+        <!-- LINE 2 -->
+        <tr>
+          <td><strong>Line 2</strong></td>
+          <td><span class="tag">&lt;p&gt;</span> inside <span class="tag">section.wrapper</span></td>
+          <td>
+            <span class="rule">*</span>,
+            <span class="rule">p</span>,
+            <span class="rule">section p</span>
+          </td>
+          <td>
+            <ul class="prop-list">
+              <li><span class="prop-name">font-size:</span> <span class="prop-val">18px</span> <em>(from *)</em></li>
+              <li><span class="prop-name">font-family:</span> <span class="prop-val">Tahoma</span> <em>(from *)</em></li>
+              <li><span class="prop-name">color:</span> <span class="prop-val">brown</span> <em>(section p overrides p → gray)</em></li>
+              <li><span class="prop-name">font-style:</span> <span class="prop-val">italic</span> <em>(from section p)</em></li>
+            </ul>
+            <div class="explanation">
+              <code>section p</code> (specificity 0,0,1,1) beats <code>p</code> (specificity 0,0,0,1), so <strong>color is brown and font-style is italic</strong>.
+            </div>
+          </td>
+        </tr>
+
+        <!-- LINE 3 -->
+        <tr>
+          <td><strong>Line 3</strong></td>
+          <td><span class="tag">&lt;h3&gt;</span> inside <span class="tag">section.wrapper</span></td>
+          <td>
+            <span class="rule">*</span>,
+            <span class="rule">h1, h3</span>,
+            <span class="rule">.wrapper h3</span>
+          </td>
+          <td>
+            <ul class="prop-list">
+              <li><span class="prop-name">font-size:</span> <span class="prop-val">18px</span> <em>(from *)</em></li>
+              <li><span class="prop-name">color:</span> <span class="prop-val">maroon</span> <em>(.wrapper h3 overrides h1,h3 → darkgreen)</em></li>
+              <li><span class="prop-name">font-family:</span> <span class="prop-val">Times New Roman</span> <em>(.wrapper h3 overrides * → Tahoma)</em></li>
+              <li><span class="prop-name">font-style:</span> <span class="prop-val">normal</span> <em>(from h1, h3)</em></li>
+            </ul>
+            <div class="explanation">
+              <code>.wrapper h3</code> (specificity 0,1,0,1) beats <code>h1, h3</code> (0,0,0,1). So color = maroon and font-family = Times New Roman. font-style comes from <code>h1, h3</code> since <code>.wrapper h3</code> doesn't set it.
+            </div>
+          </td>
+        </tr>
+
+        <!-- LINE 4 -->
+        <tr>
+          <td><strong>Line 4</strong></td>
+          <td><span class="tag">&lt;p&gt;</span> (standalone, outside section)</td>
+          <td>
+            <span class="rule">*</span>,
+            <span class="rule">p</span>
+          </td>
+          <td>
+            <ul class="prop-list">
+              <li><span class="prop-name">font-size:</span> <span class="prop-val">18px</span> <em>(from *)</em></li>
+              <li><span class="prop-name">font-family:</span> <span class="prop-val">Tahoma</span> <em>(from *)</em></li>
+              <li><span class="prop-name">color:</span> <span class="prop-val">gray</span> <em>(from p)</em></li>
+            </ul>
+            <div class="explanation">
+              This <code>&lt;p&gt;</code> is not inside a <code>&lt;section&gt;</code>, so <code>section p</code> does NOT apply. Only <code>p</code> and <code>*</code> match.
+            </div>
+          </td>
+        </tr>
+
+        <!-- LINE 5 -->
+        <tr>
+          <td><strong>Line 5</strong></td>
+          <td><span class="tag">&lt;li&gt;</span> inside <span class="tag">&lt;ul&gt;</span> inside <span class="tag">&lt;section&gt;</span></td>
+          <td><span class="rule">*</span></td>
+          <td>
+            <ul class="prop-list">
+              <li><span class="prop-name">font-size:</span> <span class="prop-val">18px</span> <em>(from *)</em></li>
+              <li><span class="prop-name">font-family:</span> <span class="prop-val">Tahoma</span> <em>(from *)</em></li>
+              <li><span class="prop-name">color:</span> <span class="nil">NIL</span></li>
+            </ul>
+            <div class="explanation">
+              No specific rule targets <code>&lt;li&gt;</code>. Only the universal selector applies.
+            </div>
+          </td>
+        </tr>
+
+        <!-- LINE 6 -->
+        <tr>
+          <td><strong>Line 6</strong></td>
+          <td><span class="tag">&lt;h1&gt;</span> (immediately after a <span class="tag">&lt;section&gt;</span>)</td>
+          <td>
+            <span class="rule">*</span>,
+            <span class="rule">h1, h3</span>,
+            <span class="rule">section + h1</span>
+          </td>
+          <td>
+            <ul class="prop-list">
+              <li><span class="prop-name">font-size:</span> <span class="prop-val">18px</span> <em>(from *)</em></li>
+              <li><span class="prop-name">font-family:</span> <span class="prop-val">Tahoma</span> <em>(from *)</em></li>
+              <li><span class="prop-name">color:</span> <span class="prop-val">navy</span> <em>(section + h1 overrides h1,h3 → darkgreen)</em></li>
+              <li><span class="prop-name">font-style:</span> <span class="prop-val">normal</span> <em>(from h1, h3)</em></li>
+              <li><span class="prop-name">border-style:</span> <span class="prop-val">solid</span> <em>(from section + h1)</em></li>
+            </ul>
+            <div class="explanation">
+              <code>section + h1</code> is the adjacent sibling combinator. The <code>&lt;h1&gt;</code> is immediately after the last <code>&lt;section&gt;</code> (ignoring <code>&lt;p&gt;</code> in between — wait: actually the <code>&lt;p&gt; Line 4 &lt;/p&gt;</code> and the second section are between). The second <code>&lt;section&gt;</code> (containing Line 5) is the immediate sibling of <code>&lt;h1&gt;</code> Line 6. So <code>section + h1</code> DOES apply. Color = navy, border-style = solid.
+            </div>
+          </td>
+        </tr>
+
+        <!-- LINE 7 -->
+        <tr>
+          <td><strong>Line 7</strong></td>
+          <td><span class="tag">&lt;p class="highlight"&gt;</span></td>
+          <td>
+            <span class="rule">*</span>,
+            <span class="rule">p</span>,
+            <span class="rule">.highlight</span>
+          </td>
+          <td>
+            <ul class="prop-list">
+              <li><span class="prop-name">font-size:</span> <span class="prop-val">26px</span> <em>(.highlight overrides * → 18px)</em></li>
+              <li><span class="prop-name">font-family:</span> <span class="prop-val">Tahoma</span> <em>(from *)</em></li>
+              <li><span class="prop-name">color:</span> <span class="prop-val">gray</span> <em>(from p; .highlight doesn't set color)</em></li>
+              <li><span class="prop-name">border-style:</span> <span class="prop-val">dotted</span> <em>(from .highlight)</em></li>
+            </ul>
+            <div class="explanation">
+              <code>.highlight</code> (specificity 0,1,0,0) overrides <code>*</code> for font-size → <strong>26px</strong>. <code>p</code> rule still sets color to gray since <code>.highlight</code> doesn't specify color.
+            </div>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <!-- Specificity Note -->
+    <div class="specificity-note">
+      <h4>📘 Specificity Reference (used in analysis above)</h4>
+      <p>
+        CSS specificity is calculated as <strong>(inline, id, class/attribute/pseudo-class, element)</strong>:
+      </p>
+      <ul style="padding-left:1.2rem; margin-top:0.5rem; font-size:0.85rem; color:#444;">
+        <li><code>*</code> → (0,0,0,0) — lowest priority</li>
+        <li><code>p</code>, <code>h1</code>, <code>h3</code>, <code>li</code>, <code>section</code> → (0,0,0,1) — element selector</li>
+        <li><code>h1, h3</code> → (0,0,0,1) — same, comma = two separate rules</li>
+        <li><code>.highlight</code> → (0,0,1,0) — class selector</li>
+        <li><code>section p</code> → (0,0,0,2) — two element selectors</li>
+        <li><code>section + h1</code> → (0,0,0,2) — two element selectors (combinator doesn't add)</li>
+        <li><code>.wrapper h3</code> → (0,0,1,1) — class + element</li>
+      </ul>
+    </div>
+
+  </div>
+
+</body>
+</html>
